@@ -4,7 +4,7 @@ pipeline {
         stage ('cloning the repository') {
             steps {
                 echo 'cloning the repository'
-                git branch:'main', url:'' 
+                git branch:'main', url:'https://github.com/sivalakshmanna/spring-petclinic.git' 
                 sh 'ls'
             }
         }
