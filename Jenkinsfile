@@ -14,8 +14,17 @@ pipeline {
         stage ('building the application') {
             steps {
                 echo 'build the application'
-                sh 'mvn package'
+                sh 'mvn clean install -Dmaven.test.skip=true'
             }
-        }  
+        } 
+        stage ('deploy the application') {
+            steps {
+                echo 'deploy the application'
+                sh 'nohup java -jar target/*.jar > log.txt 2>&1 &
+'
+            }
+        } 
     }
+    
+    
 }
