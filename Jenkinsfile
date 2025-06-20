@@ -14,7 +14,7 @@ pipeline {
         stage ('building the application') {
             steps {
                 echo 'build the application'
-                sh 'mvn clean install -Dmaven.test.skip=true'
+                sh 'mvn clean package'
             }
         } 
         stage ('deploy the application') {
