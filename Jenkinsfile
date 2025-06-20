@@ -20,7 +20,7 @@ pipeline {
         stage ('deploy the application') {
             steps {
                 echo 'deploy the application'
-                sh 'nohup java -jar target/*.jar > log.txt 2>&1 &'
+                sh 'java -jar target/*.jar'
             }
         } 
     }
