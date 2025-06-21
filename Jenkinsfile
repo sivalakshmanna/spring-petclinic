@@ -12,15 +12,18 @@ pipeline {
             }
         }
        
+        stage ('building the application') {
+            steps {
+                echo 'build the application'
+                sh 'mvn clean package'
+            }
+        } 
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonar', variable: 'SONAR_TOKEN')]) {
-                    sh """
-                           mvn clean verify sonar:sonar \
-                          -Dsonar.projectKey=jenkins \
-                          -Dsonar.host.url=http://34.61.168.75:9000 \
-                          -Dsonar.login=$SONAR_TOKEN
-                    """
+                    sh "
+                           mvn verify sonar:sonar -Dsonar.login=$SONAR_TOKEN
+                    "
                 }
             }
         }
