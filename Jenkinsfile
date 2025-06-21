@@ -1,5 +1,8 @@
 pipeline {
-    agent any 
+    agent any
+    environment {
+        SONAR_TOKEN = credentials('sonar')  // Fetch the token from Jenkins credentials
+    }
     tools {
     maven 'maven'
   }
@@ -17,9 +20,22 @@ pipeline {
                 sh 'mvn clean package'
             }
         } 
-        stage ('deploy the application') {
+        stage('SonarQube Analysis') {
             steps {
-                echo 'deploy the application'
+                withSonarQubeEnv('sonar') {  // Name of SonarQube server configured in Jenkins
+                    sh """
+                        
+                           mvn clean verify sonar:sonar \
+                          -Dsonar.projectKey=jenkins \
+                          -Dsonar.host.url=http://34.61.168.75:9000 \
+                          -Dsonar.login=$SONAR_TOKEN
+                    """
+                }
+            }
+        }
+        stage ('docker build') {
+            steps {
+                echo 'docker build springpetclinic'
                 sh 'java -jar target/*.jar'
             
             }
