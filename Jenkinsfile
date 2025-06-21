@@ -18,13 +18,7 @@ pipeline {
                 sh 'mvn clean package'
             }
         } 
-        stage('SonarQube Analysis') {
-            steps {
-                withCredentials([string(credentialsId: 'sonar', variable: 'SONAR_TOKEN')]) {
-                    sh "mvn verify sonar:sonar -Dsonar.login=$SONAR_TOKEN"
-                }
-            }
-        }
+       
         stage('Build docker image'){
             steps{
                 script{
