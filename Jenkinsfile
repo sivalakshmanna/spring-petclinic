@@ -23,7 +23,7 @@ pipeline {
                     sh """
                            mvn clean verify sonar:sonar \
                           -Dsonar.projectKey=jenkins \
-                          -Dsonar.host.url=https://34.61.168.75:9000 \
+                          -Dsonar.host.url=http://34.61.168.75:9000 \
                           -Dsonar.login=$SONAR_TOKEN
                     """
                 }
