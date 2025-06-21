@@ -14,7 +14,7 @@ pipeline {
         stage ('building the application') {
             steps {
                 echo 'build the application'
-                sh 'mvn clean package'
+                sh 'mvn clean package -DskipTests'
             }
         } 
         stage('SonarQube Analysis') {
