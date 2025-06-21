@@ -24,7 +24,7 @@ pipeline {
                 script{
                     echo 'docker image build'
 		            echo "local-storage"
-	                sh 'sudo docker build -t sivalakshmanna/local-storage:${BUILD_NUMBER} .'
+	                sh 'sudo docker build -t sivalakshmanna/springpetclinic:${BUILD_NUMBER} .'
                 }
             }
         }		
