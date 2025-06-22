@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        SONAR_TOKEN = credentials('sonar')  // Fetch the token from Jenkins credentials
+    }    
     tools {
     maven 'maven'
   }
@@ -18,7 +21,17 @@ pipeline {
                 sh 'mvn clean package'
             }
         } 
-       
+       stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonar') {  // Name of SonarQube server configured in Jenkins
+                    sh """
+                         mvn sonar:sonar \
+                        -Dsonar.projectKey=jenkins \
+                        -Dsonar.login=$SONAR_TOKEN
+                    """
+                }
+            }
+        }
         stage('Build docker image'){
             steps{
                 script{
