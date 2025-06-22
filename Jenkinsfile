@@ -48,8 +48,7 @@ pipeline {
 		   script {
                          withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                              sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                             sh 'docker push sivalakshmanna/springpetclinic:${BUILD_NUMBER}'
-                             sh 'docker rm spring-petclinic'    
+                             sh 'docker push sivalakshmanna/springpetclinic:${BUILD_NUMBER}'    
 			     sh 'docker run --name spring-petclinic -d -p 9090:8080 sivalakshmanna/springpetclinic:${BUILD_NUMBER}'	 
                          } 
                 }
